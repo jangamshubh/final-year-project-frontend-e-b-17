@@ -11,10 +11,6 @@
                     <label for="name1">Name</label>
                     <InputText id="name1" type="text" v-model="v$.user.name.$model"/>
                 </div>
-                <div class="field p-fluid">
-                    <label for="roll1">Roll Number</label>
-                    <InputText id="roll1" type="text" v-model="v$.user.roll_number.$model"/>
-                </div>
                 <Button label="Submit" v-on:click="updateUser()" :disabled="v$.user.$invalid"></Button>
             </div>
         </div>
@@ -32,7 +28,6 @@ export default {
         return {
             user: {
                 name: '',
-                roll_number: '',
             },
         };
     },
@@ -41,7 +36,6 @@ export default {
         return {
           user: {
             name: { required },
-            roll_number: { required },
           }
         }
     },

@@ -37,12 +37,27 @@ const routes = [
         name: 'users.show',
         component: () => import('./pages/users/Show.vue'),
     },
-    {
-        path: '/users/import',
-        name: 'users.import',
-        component: () => import('./pages/users/Import.vue'),
-    },
 
+    {
+        path: '/committees',
+        name: 'committees.index',
+        component: () => import('./pages/committees/Index.vue'),
+    },
+    {
+        path: '/committees/create',
+        name: 'committees.create',
+        component: () => import('./pages/committees/Create.vue'),
+    },
+    {
+        path: '/committees/:id/edit',
+        name: 'committees.edit',
+        component: () => import('./pages/committees/Edit.vue'),
+    },
+    {
+        path: '/committees/:id/show',
+        name: 'committees.show',
+        component: () => import('./pages/committees/Show.vue'),
+    },
     // {
     //     path: '/formlayout',
     //     name: 'formlayout',

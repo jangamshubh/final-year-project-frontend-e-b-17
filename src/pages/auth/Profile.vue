@@ -18,6 +18,9 @@ export default {
         },
         currentAccessToken() {
             return this.$store.state.auth.access_token;
+        },
+        currentRole() {
+            return this.$store.state.auth.role;
         }
     },
     created() {
@@ -26,7 +29,7 @@ export default {
         }
     },
     mounted() {
-        
+        console.log(this.currentRole);
     }
 };
 </script>

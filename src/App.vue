@@ -49,6 +49,7 @@ export default {
 					label: 'Administration', icon: 'pi pi-fw pi-sitemap',
 					items: [
 						{ label: 'Users', icon: 'pi pi-fw pi-check-square', to: '/users' },
+						{ label: 'Committees', icon: 'pi pi-fw pi-check-square', to: '/committees' },
 					]
 				},
             ],

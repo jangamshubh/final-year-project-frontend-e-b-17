@@ -4,12 +4,12 @@
             <div class="card">
                 <Toast />
                 <div class="card-header flex justify-content-between flex-column sm:flex-row">
-                    <h5>Users</h5>
+                    <h5>Committees</h5>
                     <Button type="button" icon="pi pi-plus" class="p-button-outlined mb-2" label="Add" @click="redirectToCreatePage()"/>
                 </div>
-                <DataTable :value="users" :paginator="true" class="p-datatable-gridlines" :rows="10" dataKey="id" :rowHover="true"
+                <DataTable :value="committees" :paginator="true" class="p-datatable-gridlines" :rows="10" dataKey="id" :rowHover="true"
                 v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll"
-                :globalFilterFields="['name','email','role']" >
+                :globalFilterFields="['name']" >
 
                 <template #header>
                     <div class="flex justify-content-between flex-column sm:flex-row">
@@ -21,43 +21,40 @@
                     </div>
                 </template>
                 <template #empty>
-                    No customers found.
+                    No data found.
                 </template>
                 <template #loading>
-                    Loading users data. Please wait.
+                    Loading data. Please wait.
                 </template>
                 <Column field="name" header="Name" style="min-width:12rem">
                     <template #body="{data}">
-                        {{data.name}}
+                        {{ data.name }}
                     </template>
                     <template #filter="{filterModel}">
                         <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by name"/>
                     </template>
                 </Column>
-                <Column field="email" header="Email" style="min-width:12rem">
+                <Column field="admin" header="Admin" style="min-width:12rem">
                     <template #body="{data}">
-                        {{data.email}}
-                    </template>
-                    <template #filter="{filterModel}">
-                        <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by email"/>
+                        {{ data.committee_get_admins.name }}
                     </template>
                 </Column>
                 <Column>
                     <template #body="data">
-                        <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editUser(data.data)" />
-                        <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" @click="confirmDeleteUser(data.data)" />
-                        <Button icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" @click="showUser(data.data)" />
+                        <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editCommittee(data.data)" />
+                        <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" @click="confirmDeleteCommittee(data.data)" />
+                        <Button icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" @click="showCommittee(data.data)" />
                     </template>
                 </Column>
             </DataTable>
-            <Dialog v-model:visible="deleteUserDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
+            <Dialog v-model:visible="deleteCommitteeDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
                 <div class="flex align-items-center justify-content-center">
                     <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-                    <span v-if="user">Are you sure you want to delete <b>{{ user_data.name }}</b>?</span>
+                    <span v-if="user">Are you sure you want to delete <b>{{ committee_data.name }}</b>?</span>
                 </div>
                 <template #footer>
-                    <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteUserDialog = false"/>
-                    <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteUser(user_data.id)" />
+                    <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteCommitteeDialog = false"/>
+                    <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteCommittee(committee_data.id)" />
                 </template>
             </Dialog>
         </div>
@@ -71,12 +68,12 @@ import authHeader from '../../services/auth-header';
 export default {
     data() {
         return {
-            users: null,
+            committees: null,
             filters1: null,
             filters2: {},
             loading1: true,
             loading2: true,
-            deleteUserDialog: false,
+            deleteCommitteeDialog: false,
         }
     },
     computed: {
@@ -96,7 +93,7 @@ export default {
         this.initFilters1();
     },
     mounted() {
-        this.getAllUsers();
+        this.getAllCommittees();
     },
     methods: {
         checkUserLogin() {
@@ -112,9 +109,9 @@ export default {
         showDeleteSuccess() {
             this.$toast.add({ severity:'success', summary: 'Success Message', detail:'Message Detail', life: 3000 });
         },
-        getAllUsers() {
-            axios.get(`${process.env.VUE_APP_API_URL}/users`, { headers: authHeader() }).then(data => {
-                this.users = data.data.data;
+        getAllCommittees() {
+            axios.get(`${process.env.VUE_APP_API_URL}/committees`, { headers: authHeader() }).then(data => {
+                this.committees = data.data.data;
                 this.loading1 = false;
             })
             this.loading2 = false;
@@ -129,29 +126,26 @@ export default {
         clearFilter1() {
             this.initFilters1();
         },
-        editUser(data) {
-            this.$router.push({ name: 'users.edit', params: { id: data.id }});
+        editCommittee(data) {
+            this.$router.push({ name: 'committees.edit', params: { id: data.id }});
         },
-        showUser(data) {
-            this.$router.push({ name: 'users.show', params: { id: data.id }});
+        showCommittee(data) {
+            this.$router.push({ name: 'committees.show', params: { id: data.id }});
         },
-        confirmDeleteUser(data) {
-			this.user_data = data;
-			this.deleteUserDialog = true;
+        confirmDeleteCommittee(data) {
+			this.committee_data = data;
+			this.deleteCommitteeDialog = true;
 		},
-        deleteUser(id){
-            axios.get(`${process.env.VUE_APP_API_URL}/users/${id}/delete`, { headers: authHeader() }).then(() => {
-                this.getAllUsers();
-                this.deleteUserDialog = false;
+        deleteCommittee(id){
+            axios.get(`${process.env.VUE_APP_API_URL}/committees/${id}/delete`, { headers: authHeader() }).then(() => {
+                this.getAllCommittees();
+                this.deleteCommitteeDialog = false;
                 this.showDeleteSuccess();
             })
         },
         redirectToCreatePage() {
-            this.$router.push({ name: 'users.create' });
+            this.$router.push({ name: 'committees.create' });
         },
-        redirectToImportPage() {
-            this.$router.push({ name: 'users.import' });
-        }
     },
 
 }
