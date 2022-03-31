@@ -58,6 +58,27 @@ const routes = [
         name: 'committees.show',
         component: () => import('./pages/committees/Show.vue'),
     },
+
+    {
+        path: '/event-locations',
+        name: 'event-locations.index',
+        component: () => import('./pages/event-locations/Index.vue'),
+    },
+    {
+        path: '/event-locations/create',
+        name: 'event-locations.create',
+        component: () => import('./pages/event-locations/Create.vue'),
+    },
+    {
+        path: '/event-locations/:id/edit',
+        name: 'event-locations.edit',
+        component: () => import('./pages/event-locations/Edit.vue'),
+    },
+    {
+        path: '/event-locations/:id/show',
+        name: 'event-locations.show',
+        component: () => import('./pages/event-locations/Show.vue'),
+    },
     // {
     //     path: '/formlayout',
     //     name: 'formlayout',
