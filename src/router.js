@@ -79,6 +79,27 @@ const routes = [
         name: 'event-locations.show',
         component: () => import('./pages/event-locations/Show.vue'),
     },
+
+    {
+        path: '/events',
+        name: 'events.index',
+        component: () => import('./pages/events/Index.vue'),
+    },
+    {
+        path: '/events/create',
+        name: 'events.create',
+        component: () => import('./pages/events/Create.vue'),
+    },
+    {
+        path: '/events/:id/edit',
+        name: 'events.edit',
+        component: () => import('./pages/events/Edit.vue'),
+    },
+    {
+        path: '/events/:id/show',
+        name: 'events.show',
+        component: () => import('./pages/events/Show.vue'),
+    },
     // {
     //     path: '/formlayout',
     //     name: 'formlayout',

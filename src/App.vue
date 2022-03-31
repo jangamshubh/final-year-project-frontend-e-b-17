@@ -50,6 +50,8 @@ export default {
 					items: [
 						{ label: 'Users', icon: 'pi pi-fw pi-check-square', to: '/users' },
 						{ label: 'Committees', icon: 'pi pi-fw pi-check-square', to: '/committees' },
+						{ label: 'Event Locations', icon: 'pi pi-fw pi-check-square', to: '/event-locations' },
+						{ label: 'Events', icon: 'pi pi-fw pi-check-square', to: '/events' },
 					]
 				},
             ],
@@ -75,13 +77,12 @@ export default {
                         label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'
                     }]
                 },
-				// {
-				// 	label: 'Administration', icon: 'pi pi-fw pi-sitemap',
-				// 	items: [
-				// 		{ label: 'Assignments', icon: 'pi pi-fw pi-id-card', to: '/assignments' },
-				// 		{ label: 'Attendance', icon: 'pi pi-fw pi-id-card', to: '/attendances' },
-				// 	]
-				// },
+				{
+					label: 'Administration', icon: 'pi pi-fw pi-sitemap',
+					items: [
+						{ label: 'Events', icon: 'pi pi-fw pi-check-square', to: '/events' },
+					]
+				},
             ],
         }
     },
