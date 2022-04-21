@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card p-fluid">
-                <h5>Login</h5>
+                <h5>Login to V - Auditorium Seminar Hall Booking System</h5>
                 <div class="field">
                     <label for="email1">Email</label>
                     <InputText id="email1" type="text" v-model="user.email"/>

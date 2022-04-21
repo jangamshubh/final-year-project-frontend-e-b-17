@@ -55,11 +55,14 @@
                             </tr>
                             <tr>
                                 <th>Is Event Approved ?</th>
-                                <td v-if="event.is_approved == 0" class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                    No
+                                <td v-if="event.is_approved == 1" class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                    YES
+                                </td>
+                                <td v-else-if="event.is_approved == 2" class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                    Rejected
                                 </td>
                                 <td v-else class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                    Yes
+                                    No Decision Taken
                                 </td>
                             </tr>
                         </tbody>

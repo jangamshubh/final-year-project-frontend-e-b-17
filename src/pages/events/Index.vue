@@ -49,6 +49,7 @@
                         <Button v-if="this.role == 'Committee Admin'" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editEvent(data.data)" />
                         <Button v-if="this.role == 'Committee Admin'" icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" @click="confirmDeleteEvent(data.data)" />
                         <Button v-if="((data.data.is_approved == 0) && (this.role == 'Super Admin'))" icon="pi pi-check" class="p-button-rounded p-button-info mr-2" @click="confirmApproveEvent(data.data)" />
+                        <Button v-if="((data.data.is_approved == 0) && (this.role == 'Super Admin'))" icon="pi pi-times" class="p-button-rounded p-button-info mr-2" @click="confirmRejectEvent(data.data)" />
                         <Button icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" @click="showEvent(data.data)" />
                     </template>
                 </Column>
@@ -73,6 +74,16 @@
                     <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="approveEvent(event_data.id)" />
                 </template>
             </Dialog>
+            <Dialog v-model:visible="rejectEventDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
+                <div class="flex align-items-center justify-content-center">
+                    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
+                    <span v-if="user">Are you sure you want to reject this event <b>{{ event_data.name }}</b>?</span>
+                </div>
+                <template #footer>
+                    <Button label="No" icon="pi pi-times" class="p-button-text" @click="rejectEventDialog = false"/>
+                    <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="rejectEvent(event_data.id)" />
+                </template>
+            </Dialog>
         </div>
     </div>
 </div>
@@ -91,6 +102,7 @@ export default {
             loading2: true,
             deleteEventDialog: false,
             approveEventDialog: false,
+            rejectEventDialog: false,
         }
     },
     computed: {
@@ -156,6 +168,10 @@ export default {
             this.event_data = data;
             this.approveEventDialog = true;
         },
+        confirmRejectEvent(data) {
+            this.event_data = data;
+            this.rejectEventDialog = true;
+        },
         deleteEvent(id){
             axios.get(`${process.env.VUE_APP_API_URL}/events/${id}/delete`, { headers: authHeader() }).then(() => {
                 this.getAllEvents();
@@ -165,6 +181,15 @@ export default {
         },
         redirectToCreatePage() {
             this.$router.push({ name: 'events.create' });
+        },
+        rejectEvent(id) {
+            if(this.role == 'Super Admin') {
+                axios.get(`${process.env.VUE_APP_API_URL}/events/${id}/reject`, { headers: authHeader() }).then(() => {
+                    this.getAllEvents();
+                    this.rejectEventDialog = false;
+                    this.showApproveSuccess();
+                })
+            }
         },
         approveEvent(id) {
             if(this.role == 'Super Admin') {
