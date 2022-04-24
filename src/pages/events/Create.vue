@@ -1,5 +1,7 @@
 <template>
-    <div class="row">
+    <div class="row" :style="{
+        'background-image': `url(/images/booking-bg.jpeg)`,
+        }">
         <div class="col-12">
             <div class="card">
                 <Toast />

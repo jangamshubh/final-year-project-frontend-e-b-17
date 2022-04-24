@@ -27,6 +27,7 @@ export default {
                 email: '',
                 password: '',
             },
+            image: "",
         };
     },
     computed: {
