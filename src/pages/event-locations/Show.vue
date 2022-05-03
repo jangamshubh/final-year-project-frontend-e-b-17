@@ -2,41 +2,46 @@
     <div class="grid">
         <div class="col-12">
             <Card>
-				<template v-slot:title>
-					<div class="flex align-items-center justify-content-between mb-0">
-						<h5>View Event Location Details</h5>
+                <template v-slot:title>
+                    <div class="flex align-items-center justify-content-between mb-0">
+                        <h5>View Event Location Details</h5>
                         <Button icon="pi pi-arrow-left" class="p-button-rounded mr-2 mb-2" @click="redirectToIndex()"/>
                     </div>
                 </template>
                 <template v-slot:content>
-                    <table class="min-w-full border divide-y divide-gray-200">
-                        <tbody class="bg-white divide-y divide-gray-200 divide-solid">
-                            <tr class="bg-white">
-                                <th>Name</th>
-                                <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                    {{ event_location.name }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Description</th>
-                                <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                    {{ event_location.description }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Location</th>
-                                <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                    {{ event_location.location }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Seating Capacity</th>
-                                <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                    {{ event_location.seating_capacity }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="card">
+                        <div class="card-image">
+                            <img class="image-fit" v-bind:src="event_location.file_url" />
+                        </div>
+                        <table class="min-w-full border divide-y divide-gray-200">
+                            <tbody class="bg-white divide-y divide-gray-200 divide-solid">
+                                <tr class="bg-white">
+                                    <th>Name</th>
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ event_location.name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ event_location.description }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Location</th>
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ event_location.location }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Seating Capacity</th>
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ event_location.seating_capacity }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </template>
             </Card>
         </div>
@@ -54,6 +59,7 @@ export default {
                 description: '',
                 location:'',
                 seating_capacity:'',
+                file_url: '',
             },
         }
     },
@@ -80,9 +86,9 @@ export default {
             }
         },
         checkUserRole() {
-            if(this.checkRole != 'Super Admin') {
-               this.$router.push("/");
-           }
+            if(this.checkRole != 'Super Admin' && this.checkRole != 'Committee Admin') {
+                this.$router.push("/");
+            }
         },
         getEventLocation() {
             axios.get(`${process.env.VUE_APP_API_URL}/event-locations/${this.$route.params.id}/show`,{ headers: authHeader() }).then(data => {
@@ -99,3 +105,10 @@ export default {
     },
 }
 </script>
+<style scoped>
+.image-fit{
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+</style>    
