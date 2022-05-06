@@ -14,6 +14,8 @@
 						Date: {{ event.date }} <br>
 						Start Time: {{ event.start_time }} <br>
 						End Time: {{ event.end_time }} <br>
+						Location: {{ event.event_get_event_locations.name }}
+						Seating Capacity: {{ event.event_get_event_locations.seating_capacity }}
 					</div>
 				</div>
 			</div>
