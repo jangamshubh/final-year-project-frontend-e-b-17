@@ -1,24 +1,19 @@
 <template>
-	<div class="grid">
-		<div class="col-12 lg:col-6 xl:col-3">
-			<div class="card mb-0">
-				<h5>Events</h5>
-                <div class ="row">
-					<div class="col-lg-4" v-for="event in events" :key="event.id">
-						<div class="card">
-							<div class="card-image">
-								<img class="image-fit" v-bind:src="event.event_get_event_locations.file_url" />
-							</div>
-							<div class="card-header">
-								{{ event.name }}
-							</div>
-							<div class="card-body">
-								Date: {{ event.date }} <br>
-								Start Time: {{ event.start_time }} <br>
-								End Time: {{ event.end_time }} <br>
-								Location:{{ event.event_get_event_locations.name}}
-							</div>
-						</div>
+	<div class="container">
+		<h5>Events</h5>
+		<div class ="row">
+			<div class="col-4" v-for="event in events" :key="event.id">
+				<div class="card">
+					<div class="card-image">
+						<img class="image-fit" v-bind:src="event.event_get_event_locations.file_url" />
+					</div>
+					<div class="card-header">
+						{{ event.name }}
+					</div>
+					<div class="card-body">
+						Date: {{ event.date }} <br>
+						Start Time: {{ event.start_time }} <br>
+						End Time: {{ event.end_time }} <br>
 					</div>
 				</div>
 			</div>
@@ -34,22 +29,22 @@ export default {
 		return {
 			events: [],
 			carouselResponsiveOptions: [
-                {
-                    breakpoint: "1024px",
-                    numVisible: 3,
-                    numScroll: 3,
-                },
-                {
-                    breakpoint: "768px",
-                    numVisible: 2,
-                    numScroll: 2,
-                },
-                {
-                    breakpoint: "560px",
-                    numVisible: 1,
-                    numScroll: 1,
-                },
-            ],
+				{
+					breakpoint: "1024px",
+					numVisible: 3,
+					numScroll: 3,
+				},
+				{
+					breakpoint: "768px",
+					numVisible: 2,
+					numScroll: 2,
+				},
+				{
+					breakpoint: "560px",
+					numVisible: 1,
+					numScroll: 1,
+				},
+			],
 		}
 	},
 
@@ -73,8 +68,8 @@ export default {
 </script>
 <style scoped>
 .image-fit{
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
 }
 </style>

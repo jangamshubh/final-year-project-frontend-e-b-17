@@ -5,7 +5,7 @@
                 <Toast />
                 <div class="card-header flex justify-content-between flex-column sm:flex-row">
                     <h5>Event Locations</h5>
-                    <Button type="button" icon="pi pi-plus" class="p-button-outlined mb-2" label="Add" @click="redirectToCreatePage()"/>
+                    <Button type="button" icon="pi pi-plus" class="p-button-outlined mb-2" label="Add" @click="redirectToCreatePage()" v-if="this.role == 'Super Admin'"/>
                 </div>
                 <DataTable :value="locations" :paginator="true" class="p-datatable-gridlines" :rows="10" dataKey="id" :rowHover="true"
                 v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll"
@@ -41,8 +41,8 @@
                 </Column>
                 <Column>
                     <template #body="data">
-                        <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editEventLocation(data.data)" />
-                        <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" @click="confirmDeleteEventLocation(data.data)" />
+                        <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editEventLocation(data.data)" v-if="this.role == 'Super Admin'"/>
+                        <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" @click="confirmDeleteEventLocation(data.data)" v-if="this.role == 'Super Admin'"/>
                         <Button icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" @click="showEventLocation(data.data)" />
                     </template>
                 </Column>
@@ -102,7 +102,7 @@ export default {
             }
         },
         checkUserRole() {
-            if(this.role != 'Super Admin') {
+            if(this.role != 'Super Admin' && this.role !='Committee Admin') {
                this.$router.push("/");
            }
         },

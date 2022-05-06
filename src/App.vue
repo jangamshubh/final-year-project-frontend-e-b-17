@@ -82,6 +82,7 @@ export default {
 				{
 					label: 'Administration', icon: 'pi pi-fw pi-sitemap',
 					items: [
+						{ label: 'Event Locations', icon: 'pi pi-fw pi-check-square', to: '/event-locations' },
 						{ label: 'Events', icon: 'pi pi-fw pi-check-square', to: '/events' },
 					]
 				},
