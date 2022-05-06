@@ -16,6 +16,7 @@
 								Date: {{ event.date }} <br>
 								Start Time: {{ event.start_time }} <br>
 								End Time: {{ event.end_time }} <br>
+								Location:{{ event.event_get_event_locations.name}}
 							</div>
 						</div>
 					</div>
